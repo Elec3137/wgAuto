@@ -91,13 +91,12 @@ func journalTrack(netnametoconnect string,conf string,endpoint string,addre stri
 			}
 		}
 
-		if (strings.Contains(line, "deactivating") && strings.Contains(line, "disconnected") && strings.Contains(line, "NetworkManager")) ||
-			(strings.Contains(line, "failed for connection") && strings.Contains(line, "NetworkManager")) {
-				exec.Command("ifconfig", wgName, "down").Run()
-				if devgw!="" { // (untested in this case, unessesary?)
-					exec.Command("ip", "route", "add", "default", "via", devgw).Run()
-				}
+		if (strings.Contains(line, "deactivating") && strings.Contains(line, "disconnected") && strings.Contains(line, "NetworkManager")) || (strings.Contains(line, "failed for connection") && strings.Contains(line, "NetworkManager")) {
+			exec.Command("ifconfig", wgName, "down").Run()
+			if devgw!="" { // (untested in this case, unessesary?)
+				exec.Command("ip", "route", "add", "default", "via", devgw).Run()
 			}
+		}
 	}
 }
 
